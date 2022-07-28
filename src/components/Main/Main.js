@@ -13,9 +13,8 @@ import Portfolio from '../Portfolio/Portfolio';
 function Main() {
   return (
     <main className="main">
-      <h2>Main =></h2>
       <Promo/>
-      <NavTab/>
+      {/*<NavTab/>*/}
       <AboutProject/>
       <Techs/>
       <AboutMe/>

@@ -4,7 +4,7 @@ import React from 'react';
 import './Promo.css';
 import promoLogo from "../../images/promo-logo.svg";
 
-function Promo() {
+function SectionHeader() {
   return (
     <section className="promo">
       <div className="promo__container">
