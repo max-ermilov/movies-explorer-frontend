@@ -8,7 +8,7 @@ function Promo() {
   return (
     <section className="promo">
       <div className="promo__container">
-        <img className="promo__logo" src={promoLogo}/>
+        <img className="promo__logo" src={promoLogo} alt="промо-логотип"/>
         <div className="promo__content">
           <h1 className="promo__header">
             Учебный проект студента факультета Веб&#8209;разработки.

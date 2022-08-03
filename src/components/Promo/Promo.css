@@ -10,12 +10,19 @@
 
 .promo__container {
   display: flex;
-  /*position: relative;*/
   flex-direction: row-reverse;
+  /*flex-wrap: wrap;*/
   justify-content: space-between;
   align-items: start;
   width: calc(100% - 140px);
   max-width: 1280px;
+}
+.promo__logo {
+  margin: 0;
+  padding: 0;
+  border: none;
+  height: 304px;
+  width: 310px;
 }
 
 .promo__header {
@@ -37,25 +44,16 @@
   max-width: 310px;
   padding-top: 36px;
   padding-bottom: 156px;
-  /*margin-bottom: 146px;*/
 }
 
 .promo__link {
-  /*position: absolute;*/
-  /*bottom: 0;*/
-  /*width: 100%;*/
-  /*max-width: 129px;*/
   opacity: 0.6;
   border: 1px solid #000000;
   border-radius: 3px;
   padding: 10px 20px;
-  /*margin: 10px 0px;*/
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  /* identical to box height, or 133% */
-  /*display: flex;*/
-  /*align-items: center;*/
   color: #000000;
   text-decoration: none;
 }

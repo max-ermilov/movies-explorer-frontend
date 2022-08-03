@@ -1,0 +1,64 @@
+.techs {
+  margin: 0;
+  padding-top: 100px;
+  background: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.techs__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 140px);
+  max-width: 1280px;
+}
+
+.techs__topic {
+  margin: 0;
+  padding-top: 90px;
+  padding-bottom: 26px;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+}
+
+.techs__description {
+  margin: 0;
+  margin-bottom: 100px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  width: 100%;
+  max-width: 460px;
+}
+
+.techs__cards {
+  margin: 0;
+  margin-bottom: 100px;
+  padding: 0;
+  display: flex;
+  gap: 10px;
+  list-style: none;
+}
+
+.techs__card {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #E8E8E8;
+  border-radius: 10px;
+  width: 90px;
+  height: 60px;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.04em;
+}
