@@ -27,13 +27,13 @@ function AboutMe() {
             </p>
             <ul className="about-me__social-medias">
               <li>
-                <a className="about-me__social-media-link"
+                <a className="link about-me__social-media-link"
                    target="_blank"
                    rel="noreferrer"
                    href="https://www.facebook.com">Facebook</a>
               </li>
               <li>
-                <a className="about-me__social-media-link"
+                <a className="link about-me__social-media-link"
                    target="_blank"
                    rel="noreferrer"
                    href="https://github.com/max-ermilov">Github</a>

@@ -15,7 +15,7 @@ function Footer() {
         </p>
         <ul className="footer__links">
           <li>
-            <a className="footer__link"
+            <a className="link footer__link"
                href="https://praktikum.yandex.ru"
                target="_blank"
                rel="noreferrer">
@@ -23,7 +23,7 @@ function Footer() {
             </a>
           </li>
           <li>
-            <a className="footer__link"
+            <a className="link footer__link"
                href="https://github.com/max-ermilov"
                target="_blank"
                rel="noreferrer">
@@ -31,7 +31,7 @@ function Footer() {
             </a>
           </li>
           <li>
-            <a className="footer__link"
+            <a className="link footer__link"
                href="https://www.facebook.com"
                target="_blank" rel="noreferrer">
               Facebook

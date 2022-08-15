@@ -28,7 +28,9 @@
 .promo__header {
   margin: 0;
   font-weight: 400;
-  font-size: 50px;
+  /*font-size: 50px;*/
+  /*font-size: 3.91vw;*/
+  font-size: clamp(35px, 3.91vw, 50px);
   line-height: 116%;
   width: 100%;
   max-width: 640px;
@@ -47,13 +49,12 @@
 }
 
 .promo__link {
-  opacity: 0.6;
-  border: 1px solid #000000;
+  border: 1px solid rgba(0, 0, 0, 0.6);
   border-radius: 3px;
   padding: 10px 20px;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  color: #000000;
-  text-decoration: none;
+  /*color: #000000;*/
+  /*text-decoration: none;*/
 }

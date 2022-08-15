@@ -10,7 +10,7 @@ function Portfolio() {
         <h2 className="portfolio__header">Портфолио</h2>
         <ul className="portfolio__links">
           <li className="portfolio__links-item">
-            <a className="portfolio__link"
+            <a className="link portfolio__link"
                target="_blank"
                rel="noreferrer"
                href="https://github.com/max-ermilov/how-to-learn">
@@ -18,7 +18,7 @@ function Portfolio() {
             </a>
           </li>
           <li className="portfolio__links-item">
-            <a className="portfolio__link"
+            <a className="link portfolio__link"
                target="_blank"
                rel="noreferrer"
                href="https://github.com/max-ermilov/russian-travel">
@@ -26,7 +26,7 @@ function Portfolio() {
             </a>
           </li>
           <li className="portfolio__links-item">
-            <a className="portfolio__link"
+            <a className="link portfolio__link"
                target="_blank"
                rel="noreferrer"
                href="https://github.com/max-ermilov/react-mesto-api-full">

@@ -14,3 +14,13 @@
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
+
+.link {
+  text-decoration: none;
+  color: #000000;
+}
+
+.link:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
