@@ -4,4 +4,19 @@
   width: 100%;
 }
 
+.container {
+  width: calc(100% - clamp(100px, 10vw, 140px));
+  max-width: 1280px;
+}
 
+@media screen and (max-width: 768px) {
+  .container {
+    width: calc(100% - clamp(36px, 13vw, 100px));
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .container {
+    width: calc(100% - 36px);
+  }
+}

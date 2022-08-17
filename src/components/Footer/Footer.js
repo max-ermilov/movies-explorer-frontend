@@ -11,7 +11,7 @@ function Footer() {
       </h2>
       <div className="footer__wrap">
         <p className="footer__copyright">
-          &copy; {new Date().getFullYear()}
+          &copy;&nbsp;{new Date().getFullYear()}
         </p>
         <ul className="footer__links">
           <li>

@@ -15,7 +15,7 @@ const age = (birthday) => {
 function AboutMe() {
   return (
     <section className="about-me">
-      <div className="about-me__container">
+      <div className="container about-me__container">
         <SectionHeader>Студент</SectionHeader>
         <div className="about-me__cover">
           <div className="about-me__info">

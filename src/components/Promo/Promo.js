@@ -7,7 +7,7 @@ import promoLogo from "../../images/promo-logo.svg";
 function Promo() {
   return (
     <section className="promo">
-      <div className="promo__container">
+      <div className="container promo__container">
         <img className="promo__logo" src={promoLogo} alt="промо-логотип"/>
         <div className="promo__content">
           <h1 className="promo__header">
