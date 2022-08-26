@@ -1,10 +1,11 @@
 import React from 'react';
-// import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import './Footer.css';
 
 function Footer() {
   return (
+    <Route path="/(|movies|saved-movies)">
     <footer className="footer">
       <div className="footer__container">
         <h2 className="footer__header">
@@ -41,7 +42,8 @@ function Footer() {
           </ul>
         </div>
       </div>
-    </footer>);
+    </footer>
+    </Route>);
 }
 
 export default Footer;

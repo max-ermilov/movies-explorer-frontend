@@ -20,13 +20,13 @@ function Header() {
               <div className="header__auth-links">
                 <Link
                   to="/signup"
-                  className="header__signup-link"
+                  className="link header__signup-link"
                 >
                   Регистрация
                 </Link>
                 <Link
                   to="/signin"
-                  className="header__signin-link"
+                  className="link header__signin-link"
                 >
                   Войти
                 </Link>

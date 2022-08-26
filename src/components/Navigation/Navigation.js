@@ -22,11 +22,11 @@ function Navigation() {
         <NavLink className="link navigation__link" activeClassName="navigation__link_active" to="/saved-movies">Сохранённые
           фильмы</NavLink>
         <Link className="link navigation__user-profile-link" to="/profile">Аккаунт</Link>
-        <button className="navigation__button" onClick={handleMenuOpen} type="button"></button>
+        <button className="button navigation__button" onClick={handleMenuOpen} type="button"></button>
       </div>
       <div className={`navigation__mobile-menu mobile-menu ${isMenuOpen ? "mobile-menu_is-open" : ""}`}>
         <div className="mobile-menu__links">
-          <button className="mobile-menu__close" onClick={handleMenuClose} type="button"></button>
+          <button className="button mobile-menu__close" onClick={handleMenuClose} type="button"></button>
           <NavLink className="link mobile-menu__link" activeClassName="mobile-menu__link_active" exact to="/"
                    onClick={handleMenuClose}>Главная</NavLink>
           <NavLink className="link mobile-menu__link" activeClassName="mobile-menu__link_active" to="/movies"
