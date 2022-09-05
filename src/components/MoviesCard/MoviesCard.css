@@ -80,7 +80,8 @@
 
 .movies-card__delete-button {
   display: none;
-  background-image: url("../../images/icon-delete.svg");}
+  background-image: url("../../images/icon-delete.svg");
+}
 
 .movies-card__name-container:hover .movies-card__delete-button {
   display: block;
@@ -99,11 +100,15 @@
 
 /*}*/
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 690px) {
   .movies-card__name {
     font-size: 12px;
     line-height: 15px;
     margin-top: 14px;
+  }
+
+  .movies-card__delete-button {
+    display: block;
   }
 
   .movies-card__duration {
