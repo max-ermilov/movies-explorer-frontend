@@ -1,12 +1,14 @@
 import React from 'react';
-// import { Route, Switch, useHistory } from 'react-router-dom';
 
+import SearchForm from "../SearchForm/SearchForm";
 import './SavedMovies.css';
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 function SavedMovies() {
   return (
     <main className="saved-movies">
-      <h2>SavedMovies</h2>
+      <SearchForm/>
+      <MoviesCardList/>
     </main>);
 }
 

@@ -27,8 +27,7 @@
   margin-left: auto;
   background-color: transparent;
   background-image: url("../../images/icon-profile.svg");
-  background-position-y: center;
-  background-position-x: 12px;
+  background-position: 12px center;
   background-repeat: no-repeat;
   border: 2px solid rgba(170, 170, 170, 0.2);
   border-radius: 50px;
@@ -51,12 +50,7 @@
   display: none;
 }
 
-.navigation__button:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.mobile-menu {
+.burger-menu {
   background-color: rgba(0,0,0,0.3);
   position: fixed;
   top: 0;
@@ -68,11 +62,11 @@
   justify-content: flex-end;
 }
 
-.mobile-menu_is-open {
+.burger-menu_is-open {
   display: flex;
 }
 
-.mobile-menu__links {
+.burger-menu__links {
   padding: 160px 0 90px;
   background-color: white;
   height: 100vh;
@@ -86,7 +80,7 @@
   box-sizing: border-box;
 }
 
-.mobile-menu__close {
+.burger-menu__close-button {
   position: absolute;
   top:27px;
   right: 27px;
@@ -100,38 +94,25 @@
   padding: 0;
 }
 
-.mobile-menu__close:hover {
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.mobile-menu__link {
+.burger-menu__link {
   margin-bottom: 28px;
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
-  /*color: #000000;*/
-  /*text-decoration: none;*/
 }
 
-.mobile-menu__link_active {
+.burger-menu__link_active {
   margin-bottom: 24px;
   padding-bottom: 4px;
   border-bottom: 2px solid #000000;
 }
 
-/*.mobile-menu__link:hover {*/
-/*  cursor: pointer;*/
-/*  opacity: 0.8;*/
-/*}*/
-
-.mobile-menu__user-profile-link {
+.burger-menu__user-profile-link {
   padding: 6px 10px 6px 29px;
   margin-top: auto;
   background-color: transparent;
   background-image: url("../../images/icon-profile.svg");
-  background-position-y: center;
-  background-position-x: 12px;
+  background-position: 12px center;
   background-repeat: no-repeat;
   border: 2px solid rgba(170, 170, 170, 0.2);
   border-radius: 50px;
@@ -139,11 +120,6 @@
   font-size: 14px;
   line-height: 16px;
 }
-
-/*.mobile-menu__user-profile:hover {*/
-/*  cursor: pointer;*/
-/*  opacity: 0.8;*/
-/*}*/
 
 @media screen and (max-width: 768px) {
   .navigation__link {
@@ -165,21 +141,21 @@
     height: 43px;
   }
 
-  .mobile-menu__close {
+  .burger-menu__close-button {
     top:20px;
     right: 20px;
   }
 
-  .mobile-menu__links {
+  .burger-menu__links {
     padding: 144px 10px 46px;
     width: 100%;
   }
 
-  .mobile-menu__link {
+  .burger-menu__link {
     margin-bottom: 24px;
   }
 
-  .mobile-menu__link_active {
+  .burger-menu__link_active {
     margin-bottom: 17px;
     padding-bottom: 7px;
   }

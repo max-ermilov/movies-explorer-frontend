@@ -1,5 +1,6 @@
 .html {
   scroll-behavior: smooth;
+  transition: all .9s ease-in-out;
 }
 
 .page {
@@ -38,4 +39,11 @@
 
 .button:hover {
   opacity: 0.8;
+  /*box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);*/
+  transition: 0.1s all;
+}
+
+.button:active {
+  transform: scale(0.95);
+  /*box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);*/
 }
