@@ -20,6 +20,8 @@ function MoviesCard({ movie }) {
   return (
     <li className="movies-card" >
       <a href={movie.trailerLink}
+         target="_blank"
+         rel="noreferrer"
          className="movies-card__link">
         <img className="movies-card__image"
              src={movie.image.url}
