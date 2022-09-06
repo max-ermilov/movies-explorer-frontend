@@ -1,13 +1,12 @@
 .profile {
   margin: 0 auto;
   display: flex;
-  flex: 1;
+  flex-grow: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   max-width: 410px;
   width: 100%;
-  position: relative;
 
   --input-container-padding-top: 17px;
   --input-container-padding-bottom: 16px;
@@ -68,12 +67,10 @@
   background-color: transparent;
 }
 
-.profile__form-input:focus {
-  /*box-shadow: 0 0 8px 0 rgba(34, 60, 80, 0.2);*/
-}
 
 .profile__controls {
   margin-top: calc(220px - var(--input-container-padding-bottom));
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,7 +80,7 @@
 }
 
 .profile__form-submit-button {
-
+  font-weight: 400;
 }
 
 .profile__sign-out-link {
@@ -111,8 +108,7 @@
     margin-top: clamp(70px, 22vw, 400px);
   }
   .profile__controls {
-    position: absolute;
-    bottom: 40px;
+    margin-top: auto;
     font-size: 12px;
     line-height: 15px;
   }

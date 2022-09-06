@@ -2,8 +2,7 @@ import React from 'react';
 
 import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard";
-import cardsList from "../../utils/initialMoviesCardsList";
-// import cardsList from "../../utils/initialEmptyMoviesCardsList";
+import cardsList from "../../utils/initialEmptyMoviesCardsList";
 
 function MoviesCardList() {
   return (

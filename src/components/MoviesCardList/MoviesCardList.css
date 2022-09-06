@@ -1,7 +1,6 @@
 .movies-card-list {
   margin: 0;
   padding: 0;
-  /*background: #FAFAFA;*/
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +18,6 @@
 
 .movies-card-list__list {
   display: grid;
-  /*gap: 38px 20px;*/
   row-gap: 30px;
   column-gap: 20px;
   grid-template-columns: repeat(auto-fill,minmax(269px,1fr));
@@ -38,7 +36,6 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
-  /*text-align: center;*/
 }
 
 @media screen and (max-width: 768px) {

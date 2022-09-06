@@ -35,15 +35,16 @@
   cursor: pointer;
   margin: 0;
   padding: 0;
+  color: #000000;
+  font-style: inherit;
+  text-align: center;
 }
 
 .button:hover {
   opacity: 0.8;
-  /*box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);*/
   transition: 0.1s all;
 }
 
 .button:active {
   transform: scale(0.95);
-  /*box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);*/
 }

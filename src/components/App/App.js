@@ -11,8 +11,6 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
-// import './App.css';
-
 function App() {
   return (
     <div className="page">

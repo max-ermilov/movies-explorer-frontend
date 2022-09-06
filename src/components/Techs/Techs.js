@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Route, Switch, useHistory } from 'react-router-dom';
 
 import './Techs.css';
 import SectionHeader from "../SectionHeader/SectionHeader";

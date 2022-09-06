@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Route, Switch, useHistory } from 'react-router-dom';
 import {Link, Route, Switch, useLocation} from 'react-router-dom';
 
 import './Header.css';

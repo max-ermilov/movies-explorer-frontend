@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Route, Switch, useHistory } from 'react-router-dom';
 
 import './Promo.css';
 import promoLogo from "../../images/promo-logo.svg";
