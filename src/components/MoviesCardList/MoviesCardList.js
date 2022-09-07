@@ -2,7 +2,11 @@ import React from 'react';
 
 import './MoviesCardList.css';
 import MoviesCard from "../MoviesCard/MoviesCard";
-import cardsList from "../../utils/initialEmptyMoviesCardsList";
+// uncomment to hide cards
+// import cardsList from "../../utils/initialEmptyMoviesCardsList";
+
+// comment to hide cards
+import cardsList from "../../utils/initialMoviesCardsList";
 
 function MoviesCardList() {
   return (
