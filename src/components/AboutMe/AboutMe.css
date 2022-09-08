@@ -1,0 +1,153 @@
+.about-me {
+  margin: 0;
+  padding-top: 110px;
+  background: #FAFAFA;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-me__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-me__cover {
+  margin: 66px 0 100px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.about-me__info {
+  margin: 0;
+  padding: 0;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__info-name {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+}
+
+.about-me__summary {
+  margin: 18px 0 26px;
+  padding: 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  mix-blend-mode: normal;
+}
+
+.about-me__description {
+  margin: 0;
+  padding: 0 0 40px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  mix-blend-mode: normal;
+}
+
+.about-me__social-medias {
+  margin: auto 0 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+
+.about-me__social-media-link {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.about-me__photo {
+  margin: 0;
+  padding: 0;
+  width: 270px;
+  height: 327px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me {
+    padding-top: 90px;
+  }
+
+  .about-me__cover {
+    margin-bottom: 90px;
+    flex-wrap: wrap-reverse;
+    row-gap: 40px;
+  }
+
+  .about-me__info {
+    max-width: clamp(292px, 46vw, 360px);
+  }
+
+  .about-me__info-name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .about-me__summary {
+    font-size: 12px;
+    line-height: 150%;
+  }
+
+  .about-me__photo {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about-me {
+    padding-top: 70px;
+  }
+
+  .about-me__cover {
+    margin: 60px 0 70px;
+    justify-content: center;
+  }
+
+  .about-me__info {
+    width: 100%;
+  }
+
+  .about-me__info-name {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .about-me__summary {
+    margin: 20px 0;
+    font-size: 11px;
+    line-height: 145%;
+  }
+
+  .about-me__description {
+    font-size: 11px;
+    line-height: 145%;
+  }
+
+  .about-me__social-medias {
+    gap: 26px;
+  }
+
+  .about-me__photo {
+    width: 100%;
+    height: 352px;
+  }
+}
