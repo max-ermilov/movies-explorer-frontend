@@ -14,7 +14,10 @@ function Form({children, formGreetings, formSubmitButtonLabel, formFooterText, f
       <form className="form__form">
         {children}
         <div className="form__footer">
-          <button className="button form__submit-button">{formSubmitButtonLabel}</button>
+          <button className="button form__submit-button"
+                  type="submit">
+            {formSubmitButtonLabel}
+          </button>
           <p className="form__footer-text">
             {formFooterText}&nbsp;
             <Link className="link form__footer-link"

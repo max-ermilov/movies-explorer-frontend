@@ -1,7 +1,7 @@
 .techs {
   margin: 0;
   padding-top: 100px;
-  background: #F5F5F5;
+  background-color: #F5F5F5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,6 +95,7 @@
 @media screen and (max-width: 320px) {
   .techs {
     padding-top: 70px;
+    background-color: #FAFAFA;
   }
 
   .techs__topic {

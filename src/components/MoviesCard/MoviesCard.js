@@ -22,7 +22,7 @@ function MoviesCard({ movie }) {
       <a href={movie.trailerLink}
          target="_blank"
          rel="noreferrer"
-         className="movies-card__link">
+         className="link movies-card__link">
         <img className="movies-card__image"
              src={movie.image.url}
              alt={movie.nameRU}
@@ -33,12 +33,13 @@ function MoviesCard({ movie }) {
         <Switch>
           <Route path="/movies">
         <button onClick={handleClickSave}
+                type="button"
                 className={`button movies-card__button movies-card__save-button ${isSaved && "movies-card__save-button_active"}`}
                 aria-label="Добавить в сохранённые">
         </button>
           </Route>
           <Route path="/saved-movies">
-            <button onClick={handleClickSave}
+            <button type="button"
                     className="button movies-card__button movies-card__delete-button"
                     aria-label="Удалить из сохранённых">
             </button>

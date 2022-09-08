@@ -17,6 +17,13 @@
   overflow: hidden;
   padding-top: calc(100% / 1.78); /*{100% / (w / h)} - fixes image block aspect ratio*/
 }
+
+.movies-card__link:focus {
+  opacity: 0.6;
+  background-color: #FFFFFF;
+  outline: none;
+}
+
 .movies-card__image {
   object-fit: cover;
   object-position: center;
