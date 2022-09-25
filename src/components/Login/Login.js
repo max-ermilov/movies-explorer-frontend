@@ -3,7 +3,6 @@ import React from 'react';
 import './Login.css';
 import FormInput from "../FormInput/FormInput";
 import Form from "../Form/Form";
-import {Link} from "react-router-dom";
 
 function Login() {
   return (
@@ -15,12 +14,14 @@ function Login() {
             formFooterLinkTo="/signup"
       >
         <FormInput inputLabel="E-mail"
+                   inputName="email"
                    inputType="email"
                    inputDefaultValue="pochta@yandex.ru"
                    inputAutocomplete="username"
                    inputError=""
         />
         <FormInput inputLabel="Пароль"
+                   inputName="password"
                    inputType="password"
                    inputDefaultValue="Виталий"
                    inputAutocomplete="current-password"

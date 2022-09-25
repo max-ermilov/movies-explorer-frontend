@@ -4,7 +4,7 @@ import './Form.css';
 import logo from "../../images/logo.svg";
 import {Link} from "react-router-dom";
 
-function Form({children, formGreetings, formSubmitButtonLabel, formFooterText, formFooterLinkName, formFooterLinkTo}) {
+function Form({children, formGreetings, formMessage, formSubmitButtonLabel, formFooterText, formFooterLinkName, formFooterLinkTo}) {
   return (
     <div className="form">
       <Link className="link form__logo-link" to="/">
@@ -15,9 +15,11 @@ function Form({children, formGreetings, formSubmitButtonLabel, formFooterText, f
         {children}
         <div className="form__footer">
           <button className="button form__submit-button"
-                  type="submit">
+                  type="submit"
+          >
             {formSubmitButtonLabel}
           </button>
+          <p className="form__message">{formMessage}</p>
           <p className="form__footer-text">
             {formFooterText}&nbsp;
             <Link className="link form__footer-link"

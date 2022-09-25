@@ -9,7 +9,13 @@ function SearchForm() {
       <div className="container search-form__container">
         <form className="search-form__form">
           <div className="search-form__input-container">
-            <input className="search-form__input" type="text" name="search" placeholder="Фильм" required/>
+            <input className="search-form__input"
+                   type="search" name="search"
+                   placeholder="Фильм"
+                   aria-label="Найти фильм"
+                   required
+                   autoComplete="off"
+            />
             <button className="button search-form__button"
                     type="submit">
               Поиск
