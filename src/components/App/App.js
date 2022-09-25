@@ -14,7 +14,7 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-import * as MainApi from "../../utils/MainApi";
+import * as api from "../../utils/MainApi";
 import {getMovies} from "../../utils/MoviesApi";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
@@ -51,7 +51,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header/>
+        <Header isLoggedIn={isLoggedIn}/>
         <Switch>
           <Route exact path="/">
             <Main/>
