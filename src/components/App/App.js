@@ -17,7 +17,6 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as api from "../../utils/MainApi";
 import {getMovies} from "../../utils/MoviesApi";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import {getUserCredentials} from "../../utils/MainApi";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -101,11 +100,24 @@ function App() {
           message: 'Профиль обновлён'
         });
       })
-      .catch(() => {
+      .catch((err) => {
+        if (err.statusCode === 409) {
+          setFormMessage({
+            message: 'Пользователь с таким email уже существует'
+          });
+        } else {
           setFormMessage({
             message: 'При обновлении профиля произошла ошибка'
           });
-      })
+        }
+      });
+  }
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('jwt');
+    setCurrentUser({});
+    history.push('/');
   }
 
   const fetchMovies = () => {
@@ -195,7 +207,8 @@ function App() {
             onEditProfile={handleEditProfile}
             formMessage={formMessage}
             resetFormMessage={resetFormMessage}
-            setCurrentUser={setCurrentUser}
+            onLogout={handleLogout}
+
           />
 
           <Route path="/signin">

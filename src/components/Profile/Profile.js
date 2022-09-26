@@ -1,10 +1,10 @@
-import {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './Profile.css';
 import {useFormValidation} from "../../utils/formValidation";
 
-function Profile({onEditProfile, formMessage: {message}}) {
+function Profile({onEditProfile, formMessage: {message}, onLogout}) {
   const currentUser = useContext(CurrentUserContext);
   const {values, handleChange, errors, isValid, resetForm} = useFormValidation();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -26,7 +26,6 @@ function Profile({onEditProfile, formMessage: {message}}) {
     } else {
       setIsDisabled(true)
     }
-    console.log('equals ==> ', equals(values, currentUser));
   }, [values])
 
   useEffect(() => {
@@ -43,7 +42,7 @@ function Profile({onEditProfile, formMessage: {message}}) {
           <label className="profile__form-input-label">
             Имя
           </label>
-          <input className="profile__form-input"
+          <input className={`profile__form-input ${(errors.name) ? "profile__form-input_type_error" : ""}`}
                  name="name"
                  autoComplete="disabled"
                  onChange={handleChange}
@@ -53,19 +52,21 @@ function Profile({onEditProfile, formMessage: {message}}) {
                  maxLength="30"
                  required/>
         </div>
+        <span className="profile__form-input-error">{errors.name}</span>
         <div className="profile__form-input-container">
           <label className="profile__form-input-label">
             E&#8209;mail
           </label>
-          <input className="profile__form-input"
+          <input className={`profile__form-input ${(errors.email) ? "profile__form-input_type_error" : ""}`}
                  name="email"
-                 autoComplete="disabled"
+                 autoComplete="false"
                  onChange={handleChange}
                  value={values.email || ''}
                  type="email"
                  required
           />
         </div>
+        <span className="profile__form-input-error">{errors.email}</span>
       </form>
       <div className="profile__controls">
         <p className="profile__message">{message || ''}</p>
@@ -76,10 +77,12 @@ function Profile({onEditProfile, formMessage: {message}}) {
         >
           Редактировать
         </button>
-        <Link className="link profile__sign-out-link"
-              to="/">
+        <button className="button profile__sign-out-link"
+                type="button"
+                onClick={onLogout}
+        >
           Выйти из аккаунта
-        </Link>
+        </button>
       </div>
 
     </main>);
