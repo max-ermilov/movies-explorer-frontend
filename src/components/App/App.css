@@ -48,3 +48,9 @@
 .button:active {
   transform: scale(0.95);
 }
+
+.button:disabled {
+  transform: none;
+  cursor: default;
+  opacity: 1;
+}

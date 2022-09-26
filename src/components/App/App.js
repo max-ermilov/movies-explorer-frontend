@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
+import {Route, Switch, useHistory, Redirect, useLocation} from 'react-router-dom';
 
 import './App.css';
 
@@ -17,11 +17,96 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import * as api from "../../utils/MainApi";
 import {getMovies} from "../../utils/MoviesApi";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import {getUserCredentials} from "../../utils/MainApi";
 
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [movies, setMovies] = useState([]);
+  const [formMessage, setFormMessage] = useState({});
+
+  const history = useHistory();
+  const pathname = useLocation();
+
+  const resetFormMessage = () => {
+    setFormMessage({});
+  }
+
+  const handleLogin = (data) => {
+    // setLoginSending(false);
+    setFormMessage({
+      message: 'Авторизация...'
+    });
+    api.login(data)
+      .then(res => {
+        localStorage.setItem('jwt', res.token);
+        setIsLoggedIn(true);
+        history.push('/movies');
+      })
+      .then(() => {
+        setFormMessage({});
+      })
+      .catch(err => {
+        if (err.statusCode === 401) {
+          setFormMessage({
+            message: 'Неверный логин или пароль'
+          });
+        } else {
+          setFormMessage({
+            message: 'Ошибка авторизации'
+          });
+        }
+      })
+      .finally(() => {
+        // setLoginSending(true);
+      })
+  }
+
+  const handleRegister = (user) => {
+    setFormMessage({
+      message: 'Регистрация...'
+    });
+    api.register(user)
+      .then(() => {
+        handleLogin({
+          email: user.email,
+          password: user.password,
+        });
+      })
+      .then(() => {
+        setFormMessage({})
+      })
+      .catch(err => {
+        if (err.statusCode === 409) {
+          setFormMessage({
+            message: 'Пользователь с таким email уже существует'
+          });
+        } else {
+          setFormMessage({
+            message: 'Ошибка регистрации'
+          });
+        }
+      })
+      .finally(() => {
+        // setRegisterSending(true);
+      })
+  };
+
+  const handleEditProfile = (user) => {
+    setFormMessage({});
+    api.patchUser(user)
+      .then((newUser) => {
+        setCurrentUser(newUser);
+        setFormMessage({
+          message: 'Профиль обновлён'
+        });
+      })
+      .catch(() => {
+          setFormMessage({
+            message: 'При обновлении профиля произошла ошибка'
+          });
+      })
+  }
 
   const fetchMovies = () => {
     getMovies()
@@ -35,17 +120,51 @@ function App() {
   }
 
   useEffect(() => {
-    const cashedMovies = localStorage.getItem('movies');
-    if (cashedMovies) {
-      try {
-        setMovies(JSON.parse(cashedMovies))
-      } catch (err) {
-        localStorage.removeItem('movies')
+    const jwt = localStorage.getItem('jwt');
+    if(jwt) {
+      api.getUserCredentials()
+        .then((res) => {
+          if (res) {
+            setIsLoggedIn(true);
+            history.push(pathname);
+          }
+        })
+        .catch(() => {
+          history.push("/")
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      api.getUserCredentials()
+        .then((user) => {
+          setCurrentUser(user);
+        })
+        .catch(() => {
+          console.log("unable to get userinfo on login")
+        });
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    resetFormMessage()
+  }, [pathname]);
+
+  useEffect(() => {
+    // if (isLoggedIn) {
+      const cashedMovies = localStorage.getItem('movies');
+      if (cashedMovies) {
+        try {
+          setMovies(JSON.parse(cashedMovies))
+        } catch (err) {
+          localStorage.removeItem('movies')
+          fetchMovies();
+        }
+      } else {
         fetchMovies();
       }
-    } else {
-      fetchMovies();
-    }
+
   }, [])
 
   return (
@@ -73,18 +192,26 @@ function App() {
             path="/profile"
             component={Profile}
             loggedIn={isLoggedIn}
+            onEditProfile={handleEditProfile}
+            formMessage={formMessage}
+            resetFormMessage={resetFormMessage}
+            setCurrentUser={setCurrentUser}
           />
 
           <Route path="/signin">
             {(isLoggedIn) ? <Redirect to="/"/> :
-              <Login
+              <Login onLogin={handleLogin}
+                     formMessage={formMessage}
+                     resetFormMessage={resetFormMessage}
               />
             }
           </Route>
 
           <Route path="/signup">
             {(isLoggedIn) ? <Redirect to="/"/> :
-              <Register
+              <Register onRegister={handleRegister}
+                        formMessage={formMessage}
+                        resetFormMessage={resetFormMessage}
               />
             }
           </Route>

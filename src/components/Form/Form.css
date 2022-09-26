@@ -54,6 +54,11 @@
   font-size: 14px;
   line-height: 17px;
 }
+.form__submit-button:disabled {
+  /*transform: none;*/
+  background-color: #A0A0A0;
+  /*cursor: default;*/
+}
 
 .form__footer-text {
   color: #A0A0A0;

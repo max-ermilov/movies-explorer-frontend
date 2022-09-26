@@ -79,8 +79,18 @@
   line-height: 16px;
 }
 
+.profile__message {
+  color: #A0A0A0;
+}
+
 .profile__form-submit-button {
   font-weight: 400;
+}
+
+.profile__form-submit-button:disabled {
+  /*transform: none;*/
+  color: #A0A0A0;
+  /*cursor: default;*/
 }
 
 .profile__sign-out-link {

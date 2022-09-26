@@ -14,7 +14,8 @@ function Header({isLoggedIn}) {
           <Link className="link header__logo-link" to="/">
             <img className="header__logo" src={logo} alt="Логотип сайта"/>
           </Link>
-          {(!isLoggedIn) ? <div className="header__auth-links">
+          {(!isLoggedIn) ?
+            <div className="header__auth-links">
             <Link
               to="/signup"
               className="link header__signup-link"
@@ -27,7 +28,9 @@ function Header({isLoggedIn}) {
             >
               Войти
             </Link>
-          </div> :  <Navigation/>}
+          </div>
+            :
+            <Navigation/>}
         </div>
       </header>
     </Route>);
