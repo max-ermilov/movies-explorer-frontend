@@ -48,3 +48,28 @@ export const patchUser = (user) => {
   })
     .then(res => checkResponse(res));
 }
+
+export const postMovie = (movieToPost) => {
+  return fetch(`${MAIN_API_URL}/movies`, {
+    method: 'POST',
+    headers: headersWithToken(),
+    body: JSON.stringify(movieToPost)
+  })
+    .then((res) => checkResponse(res))
+}
+
+export const deleteMovie = (id) => {
+  return fetch(`${MAIN_API_URL}/movies/${id}`, {
+    method: 'DELETE',
+    headers: headersWithToken()
+  })
+    .then((res) => checkResponse(res))
+}
+
+export const getMovie = () => {
+  return fetch(`${MAIN_API_URL}/movies`, {
+    method: 'GET',
+    headers: headersWithToken()
+  })
+    .then((res) => checkResponse(res))
+}

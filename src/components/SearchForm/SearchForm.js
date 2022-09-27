@@ -3,11 +3,14 @@ import React from 'react';
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm() {
+function SearchForm({ handleFilmSearch, handleFilmChange, filmSearchValue, showShortMovies, checkShorts }) {
   return (
     <section className="search-form">
       <div className="container search-form__container">
-        <form className="search-form__form">
+        <form className="search-form__form"
+              onSubmit={handleFilmSearch}
+              noValidate
+        >
           <div className="search-form__input-container">
             <input className="search-form__input"
                    type="search" name="search"
@@ -15,13 +18,17 @@ function SearchForm() {
                    aria-label="Найти фильм"
                    required
                    autoComplete="off"
+                   value={filmSearchValue || ''}
+                   onChange={handleFilmChange}
             />
             <button className="button search-form__button"
                     type="submit">
               Поиск
             </button>
           </div>
-          <FilterCheckbox/>
+          <FilterCheckbox showShortMovies={showShortMovies}
+                          checkShorts={checkShorts}
+          />
         </form>
       </div>
     </section>);

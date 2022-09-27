@@ -20,9 +20,10 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
-  const [movies, setMovies] = useState([]);
+  const [currentUser, setCurrentUser] = useState({name: '', email: ''});
+  // const [movies, setMovies] = useState([]);
   const [formMessage, setFormMessage] = useState({});
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const history = useHistory();
   const pathname = useLocation();
@@ -32,7 +33,7 @@ function App() {
   }
 
   const handleLogin = (data) => {
-    // setLoginSending(false);
+    // setLoginSending(true);
     setFormMessage({
       message: 'Авторизация...'
     });
@@ -57,7 +58,7 @@ function App() {
         }
       })
       .finally(() => {
-        // setLoginSending(true);
+        // setLoginSending(false);
       })
   }
 
@@ -120,16 +121,39 @@ function App() {
     history.push('/');
   }
 
-  const fetchMovies = () => {
-    getMovies()
-      .then(res => {
-        setMovies(res);
-        localStorage.setItem('movies', JSON.stringify(res));
+  function deleteMovieCard(movie) {
+    // setSubmitButtonDisabled(true)
+    api.deleteMovie(movie._id)
+      .then((res) => {
+        setSavedMovies((state) => state.filter((c) => c._id !== movie._id))
       })
-      .catch(err => {
-        console.log('fetchMovies err ==> ', err);
+      .catch((err) => {
+        // setToolTip(true)
       })
+      // .finally(() => setSubmitButtonDisabled(false))
   }
+
+  // const fetchMovies = () => {
+  //   getMovies()
+  //     .then(res => {
+  //       setMovies(res);
+  //       localStorage.setItem('movies', JSON.stringify(res));
+  //     })
+  //     .catch(err => {
+  //       console.log('fetchMovies err ==> ', err);
+  //     })
+  // }
+  useEffect(() => {
+    // setIsLoading(true)
+    if (localStorage.getItem('jwt')) {
+      api.getMovie()
+        .then((res) => {
+          setSavedMovies(res.filter((i) => i.owner._id === currentUser._id))
+        })
+        .catch((err) => console.log(err))
+        // .finally(() => { setIsLoading(false) })
+    }
+  }, [currentUser])
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
@@ -163,21 +187,21 @@ function App() {
     resetFormMessage()
   }, [pathname]);
 
-  useEffect(() => {
-    // if (isLoggedIn) {
-      const cashedMovies = localStorage.getItem('movies');
-      if (cashedMovies) {
-        try {
-          setMovies(JSON.parse(cashedMovies))
-        } catch (err) {
-          localStorage.removeItem('movies')
-          fetchMovies();
-        }
-      } else {
-        fetchMovies();
-      }
-
-  }, [])
+  // useEffect(() => {
+  //   // if (isLoggedIn) {
+  //     const cashedMovies = localStorage.getItem('movies');
+  //     if (cashedMovies) {
+  //       try {
+  //         setMovies(JSON.parse(cashedMovies))
+  //       } catch (err) {
+  //         localStorage.removeItem('movies')
+  //         fetchMovies();
+  //       }
+  //     } else {
+  //       fetchMovies();
+  //     }
+  //
+  // }, [])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -192,12 +216,22 @@ function App() {
             path="/movies"
             component={Movies}
             loggedIn={isLoggedIn}
+            setSavedMovies={setSavedMovies}
+            savedMovies={savedMovies}
+            deleteMovieCard={deleteMovieCard}
+            // setToolTip={setToolTip}
+            // setSubmitButtonDisabled={setSubmitButtonDisabled}
+            // submitButtonDisabled={submitButtonDisabled}
           />
 
           <ProtectedRoute
             path="/saved-movies"
             component={SavedMovies}
             loggedIn={isLoggedIn}
+            savedMovies={savedMovies}
+            // isLoading={isLoading}
+            deleteMovieCard={deleteMovieCard}
+            // submitButtonDisabled={submitButtonDisabled}
           />
 
           <ProtectedRoute

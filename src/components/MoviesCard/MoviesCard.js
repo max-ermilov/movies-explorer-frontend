@@ -1,52 +1,69 @@
-import React, {useState} from 'react';
-import { Route, Switch} from "react-router-dom";
+// import {useState} from 'react';
+import { useLocation} from "react-router-dom";
+import {formatMovieDuration} from "../../utils/formatMovieDuration";
+import {MOVIES_API_URL} from "../../utils/constants";
 
 import './MoviesCard.css';
 
-function MoviesCard({ movie }) {
-  const [isSaved, setIsSaved] = useState(false);
+function MoviesCard({ card, saveMovies, deleteMovieCard, savedMovies, /*submitButtonDisabled*/ }) {
+  const location = useLocation();
+  const isSaved = card.id ? savedMovies.map((i) => i.movieId).includes(card.id)
+    : location.pathname === '/saved-movies' ? true : '';
 
-  function handleClickSave() {
-    setIsSaved(!isSaved);
-  };
+  function handleSave() {
+    saveMovies({
+      country: card.country,
+      director: card.director,
+      duration: card.duration,
+      year: card.year,
+      description: card.description,
+      image: `${MOVIES_API_URL}/${card.image.url}`,
+      trailerLink: card.trailerLink,
+      nameRU: card.nameRU,
+      nameEN: card.nameEN,
+      thumbnail: `${MOVIES_API_URL}/${card.image.formats.thumbnail.url}`,
+      movieId: card.id,
+    })
+  }
 
-  const formatDuration = durationInMinutes => {
-    let hours = parseInt(durationInMinutes / 60);
-    hours = (!hours) ? "" : `${hours}ч `;
-    let minutes = durationInMinutes % 60;
-    minutes = (!minutes) ? "" : `${minutes}м`;
-    return `${hours}${minutes}`
-  };
+  function handleDelete() {
+    if (location.pathname === '/saved-movies') {
+      deleteMovieCard(card)
+    }
+    if (location.pathname === '/movies')
+      deleteMovieCard(savedMovies.find((i) => i.movieId === card.id))
+  }
+
   return (
     <li className="movies-card" >
-      <a href={movie.trailerLink}
+      <a href={card.trailerLink}
          target="_blank"
          rel="noreferrer"
          className="link movies-card__link">
         <img className="movies-card__image"
-             src={movie.image.url}
-             alt={movie.nameRU}
+             src={location.pathname === '/saved-movies' ? `${card.image}` : `${MOVIES_API_URL}${card.image.url}`}
+             alt={`Постер фильма ${card.nameRU}`}
         />
       </a>
       <div className="movies-card__name-container">
-        <h2 className="movies-card__name">{movie.nameRU}</h2>
-        <Switch>
-          <Route path="/movies">
-        <button onClick={handleClickSave}
-                type="button"
-                className={`button movies-card__button movies-card__save-button ${isSaved && "movies-card__save-button_active"}`}
-                aria-label="Добавить в сохранённые">
-        </button>
-          </Route>
-          <Route path="/saved-movies">
-            <button type="button"
-                    className="button movies-card__button movies-card__delete-button"
-                    aria-label="Удалить из сохранённых">
-            </button>
-          </Route>
-        </Switch>
+        <h2 className="movies-card__name">{card.nameRU}</h2>
+        {location.pathname === '/saved-movies' &&
+          <button type="button"
+                  className="button movies-card__button movies-card__delete-button"
+                  aria-label="Удалить из сохранённых"
+                  onClick={handleDelete}
+                  // disabled={Boolean(submitButtonDisabled)}
+          >
+          </button>}
+        {location.pathname === '/movies' &&
+          <button onClick={handleSave}
+                  type="button"
+                  className={`button movies-card__button movies-card__save-button ${isSaved && "movies-card__save-button_active"}`}
+                  aria-label="Добавить в сохранённые">
+          </button>}
+
       </div>
-      <p className="movies-card__duration">{formatDuration(movie.duration)}</p>
+      <p className="movies-card__duration">{formatMovieDuration(card.duration)}</p>
     </li>
   );
 }
