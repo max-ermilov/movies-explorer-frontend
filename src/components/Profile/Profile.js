@@ -1,5 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {useContext, useEffect, useState} from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './Profile.css';
 import {useFormValidation} from "../../utils/formValidation";
@@ -20,8 +19,8 @@ function Profile({onEditProfile, formMessage: {message}, onLogout}) {
   }, [isValid])
 
   useEffect(() => {
-    const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-    if (!equals(values, currentUser) && isValid) {
+    const equals = values.name === currentUser.name && values.email === currentUser.email;
+    if (!equals && isValid) {
       setIsDisabled(false)
     } else {
       setIsDisabled(true)
