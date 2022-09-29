@@ -9,13 +9,13 @@ function Header({isLoggedIn}) {
   let location = useLocation().pathname;
 
   return (<Route path="/(|movies|saved-movies|profile)">
-      <header className={`header ${(location !== "/") ? "" : "header_type_landing"}`}>
-        <div className="header__container">
-          <Link className="link header__logo-link" to="/">
-            <img className="header__logo" src={logo} alt="Логотип сайта"/>
-          </Link>
-          {(!isLoggedIn) ?
-            <div className="header__auth-links">
+    <header className={`header ${(location !== "/") ? "" : "header_type_landing"}`}>
+      <div className="header__container">
+        <Link className="link header__logo-link" to="/">
+          <img className="header__logo" src={logo} alt="Логотип сайта"/>
+        </Link>
+        {(!isLoggedIn) ?
+          <div className="header__auth-links">
             <Link
               to="/signup"
               className="link header__signup-link"
@@ -29,11 +29,11 @@ function Header({isLoggedIn}) {
               Войти
             </Link>
           </div>
-            :
-            <Navigation/>}
-        </div>
-      </header>
-    </Route>);
+          :
+          <Navigation/>}
+      </div>
+    </header>
+  </Route>);
 }
 
 export default Header;

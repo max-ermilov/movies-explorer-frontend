@@ -101,7 +101,6 @@ function App() {
   }
 
   const handleLogout = () => {
-    // setIsSubmitButtonDisabled(true);
     setIsLoggedIn(false);
     localStorage.removeItem('jwt', 'checkBox', 'filmSearch', 'filteredMovies');
     localStorage.removeItem('checkBox');
@@ -121,7 +120,7 @@ function App() {
       .catch((err) => {
         handlePopup(err.message)
       })
-    .finally(() => setIsDeleteMovieButtonDisabled(false))
+      .finally(() => setIsDeleteMovieButtonDisabled(false))
   }
 
   const closePopup = () => {
@@ -136,14 +135,12 @@ function App() {
   }
 
   useEffect(() => {
-    // setIsLoading(true)
     if (localStorage.getItem('jwt')) {
       api.getMovie()
         .then((res) => {
           setSavedMovies(res.filter((i) => i.owner._id === currentUser._id))
         })
-        .catch((err) => console.log(err))
-      // .finally(() => { setIsLoading(false) })
+        .catch((err) => handlePopup(err.message))
     }
   }, [currentUser])
 
@@ -169,9 +166,7 @@ function App() {
         .then((user) => {
           setCurrentUser(user);
         })
-        .catch(() => {
-          console.log("unable to get userinfo on login")
-        });
+        .catch((err) => handlePopup(err.message));
     }
   }, [isLoggedIn]);
 

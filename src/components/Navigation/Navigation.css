@@ -51,7 +51,7 @@
 }
 
 .burger-menu {
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
   left: 0;
@@ -82,7 +82,7 @@
 
 .burger-menu__close-button {
   position: absolute;
-  top:27px;
+  top: 27px;
   right: 27px;
   background-image: url("../../images/icon-close.svg");
   background-repeat: no-repeat;
@@ -142,7 +142,7 @@
   }
 
   .burger-menu__close-button {
-    top:20px;
+    top: 20px;
     right: 20px;
   }
 

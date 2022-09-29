@@ -3,9 +3,9 @@ import {useEffect} from 'react';
 import './Login.css';
 import FormInput from "../FormInput/FormInput";
 import Form from "../Form/Form";
-import { useFormValidation } from "../../utils/formValidation";
+import {useFormValidation} from "../../utils/formValidation";
 
-function Login({onLogin, formMessage:{message}, isSubmitButtonDisabled}) {
+function Login({onLogin, formMessage: {message}, isSubmitButtonDisabled}) {
   const {values, handleChange, resetForm, errors, isValid} = useFormValidation();
 
   const handleSubmit = (e) => {
@@ -27,7 +27,6 @@ function Login({onLogin, formMessage:{message}, isSubmitButtonDisabled}) {
             formMessage={message || ''}
             onSubmit={handleSubmit}
             isDisabled={Boolean(!isValid || isSubmitButtonDisabled)}
-            // isSubmitButtonDisabled={isSubmitButtonDisabled}
       >
         <FormInput inputLabel="E-mail"
                    inputName="email"

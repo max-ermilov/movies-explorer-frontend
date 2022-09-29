@@ -13,8 +13,7 @@ function Form({
                 formFooterLinkName,
                 formFooterLinkTo,
                 onSubmit,
-                isDisabled,
-                // isSubmitButtonDisabled
+                isDisabled
               }) {
   return (
     <div className="form">

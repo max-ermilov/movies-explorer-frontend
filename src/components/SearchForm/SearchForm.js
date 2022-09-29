@@ -3,7 +3,7 @@ import React from 'react';
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ handleFilmSearch, handleFilmChange, filmSearchValue, showShortMovies, checkShorts }) {
+function SearchForm({handleFilmSearch, handleFilmChange, filmSearchValue, showShortMovies, checkShorts}) {
   return (
     <section className="search-form">
       <div className="container search-form__container">

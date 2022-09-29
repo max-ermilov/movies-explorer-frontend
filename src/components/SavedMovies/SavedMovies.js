@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import {filterMovies} from "../../utils/filterMovies";
 
-function SavedMovies({ savedMovies, deleteMovieCard, isLoading, isDeleteMovieButtonDisabled }) {
+function SavedMovies({savedMovies, deleteMovieCard, isLoading, isDeleteMovieButtonDisabled}) {
   const [film, setFilm] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [checkShorts, setCheckShorts] = useState(false);
@@ -46,8 +46,7 @@ function SavedMovies({ savedMovies, deleteMovieCard, isLoading, isDeleteMovieBut
     if (film === '') {
       setErrorText('Нужно ввести ключевое слово');
       return setIsError(true);
-    }
-    else {
+    } else {
       setDoSearch(true)
     }
   }

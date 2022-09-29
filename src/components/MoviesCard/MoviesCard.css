@@ -75,6 +75,7 @@
   background-position-x: center;
   background-position-y: 8px;
 }
+
 .movies-card__save-button {
   background-image: url("../../images/icon-like.svg");
 }

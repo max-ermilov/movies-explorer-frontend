@@ -2,10 +2,10 @@ import {MAIN_API_URL} from './constants';
 import checkResponse from "./checkResponse";
 
 const headersWithToken = () => {
-    return {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-    }
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+  }
 };
 
 export const register = ({email, password, name}) => {

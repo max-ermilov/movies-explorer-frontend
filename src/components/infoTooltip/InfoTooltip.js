@@ -23,16 +23,16 @@ function InfoTooltip({isOpen, onClose, status}) {
   }, []);
 
   return (
-      <div className={`popup ${isOpen ? 'popup_opened' : ''}`} onClick={closeClickOverlay}>
-    <div className="popup__container">
-      <img className="popup__image" src={errorImg} alt=""/>
-      <p className="popup__text">
-        {status}
-      </p>
-      <button className="button popup__close-button" type="button" onClick={onClose}
-              aria-label="Закрыть информационное сообщение"></button>
+    <div className={`popup ${isOpen ? 'popup_opened' : ''}`} onClick={closeClickOverlay}>
+      <div className="popup__container">
+        <img className="popup__image" src={errorImg} alt=""/>
+        <p className="popup__text">
+          {status}
+        </p>
+        <button className="button popup__close-button" type="button" onClick={onClose}
+                aria-label="Закрыть информационное сообщение"></button>
+      </div>
     </div>
-  </div>
   )
 }
 

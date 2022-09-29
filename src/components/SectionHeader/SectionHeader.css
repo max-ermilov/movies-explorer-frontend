@@ -11,8 +11,8 @@
 
 @media screen and (max-width: 768px) {
   .section-header {
-  font-size: clamp(18px, 4vw, 22px);
-  line-height: clamp(22px, 4.7vw, 27px);
+    font-size: clamp(18px, 4vw, 22px);
+    line-height: clamp(22px, 4.7vw, 27px);
   }
 }
 

@@ -10,7 +10,12 @@ import {useCurrentWidth} from "../../hooks/useCurrentWidth";
 import {getFirstRows, getLoadStep} from "../../utils/handlePagination";
 import {DEFAULT_WIDTH} from "../../utils/constants";
 
-function Movies({ setSavedMovies, savedMovies, deleteMovieCard, handlePopup /*setToolTip, submitButtonDisabled, setSubmitButtonDisabled*/ }) {
+function Movies({
+                  setSavedMovies,
+                  savedMovies,
+                  deleteMovieCard,
+                  handlePopup
+                }) {
   const width = useCurrentWidth();
   const [movies, setMovies] = useState([]);
   const [filmSearchValue, setFilmSearchValue] = useState(getSearchStoreValue() || '');
@@ -22,7 +27,6 @@ function Movies({ setSavedMovies, savedMovies, deleteMovieCard, handlePopup /*se
   const [isSaveMovieButtonDisabled, setIsSaveMovieButtonDisabled] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
-
 
 
   function saveMovies(movie) {
@@ -101,8 +105,7 @@ function Movies({ setSavedMovies, savedMovies, deleteMovieCard, handlePopup /*se
         .finally(() => {
           setIsLoading(false)
         })
-    }
-    else {
+    } else {
       setAllMovies(moviesInLocal);
       setIsLoading(false);
       localStorage.setItem('filmSearch', filmSearchValue);
@@ -127,7 +130,6 @@ function Movies({ setSavedMovies, savedMovies, deleteMovieCard, handlePopup /*se
                       saveMovies={saveMovies}
                       savedMovies={savedMovies}
                       isSaveMovieButtonDisabled={isSaveMovieButtonDisabled}
-                      // submitButtonDisabled={submitButtonDisabled}
       />
     </main>);
 }

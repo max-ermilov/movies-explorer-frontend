@@ -1,11 +1,18 @@
 // import {useState} from 'react';
-import { useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {formatMovieDuration} from "../../utils/formatMovieDuration";
 import {MOVIES_API_URL} from "../../utils/constants";
 
 import './MoviesCard.css';
 
-function MoviesCard({ card, saveMovies, deleteMovieCard, savedMovies, isSaveMovieButtonDisabled, isDeleteMovieButtonDisabled /*submitButtonDisabled*/ }) {
+function MoviesCard({
+                      card,
+                      saveMovies,
+                      deleteMovieCard,
+                      savedMovies,
+                      isSaveMovieButtonDisabled,
+                      isDeleteMovieButtonDisabled
+                    }) {
   const location = useLocation();
   const isSaved = card.id ? savedMovies.map((i) => i.movieId).includes(card.id)
     : location.pathname === '/saved-movies' ? true : '';
@@ -35,7 +42,7 @@ function MoviesCard({ card, saveMovies, deleteMovieCard, savedMovies, isSaveMovi
   }
 
   return (
-    <li className="movies-card" >
+    <li className="movies-card">
       <a href={card.trailerLink}
          target="_blank"
          rel="noreferrer"

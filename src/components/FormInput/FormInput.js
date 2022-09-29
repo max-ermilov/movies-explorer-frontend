@@ -7,17 +7,17 @@ function FormInput({
                    }) {
   return (
     <div className="form-input">
-    <label className="form-input__label">{inputLabel}</label>
-    <input name={inputName}
-           className={`form-input__input ${(inputError) ? "form-input__input_type_error" : ""}`}
-           defaultValue={inputDefaultValue}
-           value={value}
-           type={inputType}
-           autoComplete={inputAutocomplete}
-           onChange={onChange}
-           required/>
-    <p className="form-input__error-field">{inputError}</p>
-  </div>);
+      <label className="form-input__label">{inputLabel}</label>
+      <input name={inputName}
+             className={`form-input__input ${(inputError) ? "form-input__input_type_error" : ""}`}
+             defaultValue={inputDefaultValue}
+             value={value}
+             type={inputType}
+             autoComplete={inputAutocomplete}
+             onChange={onChange}
+             required/>
+      <p className="form-input__error-field">{inputError}</p>
+    </div>);
 }
 
 export default FormInput;

@@ -5,22 +5,17 @@ import FormInput from "../FormInput/FormInput";
 import Form from "../Form/Form";
 import {useFormValidation} from "../../utils/formValidation";
 
-function Register({onRegister, formMessage:{message}, isSubmitButtonDisabled}) {
+function Register({onRegister, formMessage: {message}, isSubmitButtonDisabled}) {
   const {values, handleChange, resetForm, errors, isValid} = useFormValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      onRegister(values);
+    onRegister(values);
   }
 
   useEffect(() => {
     resetForm({}, {}, false);
   }, [resetForm]);
-
-  useEffect(() => {
-    console.log('isSubmitButtonDisabled ==> ', Boolean(isSubmitButtonDisabled));
-    console.log('!isValid ==> ', !isValid);
-  }, [isValid, isSubmitButtonDisabled])
 
   return (
     <main className="register">
@@ -32,12 +27,10 @@ function Register({onRegister, formMessage:{message}, isSubmitButtonDisabled}) {
             formMessage={message || ''}
             onSubmit={handleSubmit}
             isDisabled={!isValid || isSubmitButtonDisabled}
-            // isSubmitButtonDisabled={isSubmitButtonDisabled}
       >
         <FormInput inputLabel="Имя"
                    inputName="name"
                    inputType="text"
-                   // inputDefaultValue="Виталий"
                    inputAutocomplete="name"
                    inputError={errors.name || ''}
                    onChange={handleChange}
@@ -46,7 +39,6 @@ function Register({onRegister, formMessage:{message}, isSubmitButtonDisabled}) {
         <FormInput inputLabel="E-mail"
                    inputName="email"
                    inputType="email"
-                   // inputDefaultValue="pochta@yandex.ru"
                    inputAutocomplete="email"
                    inputError={errors.email || ''}
                    onChange={handleChange}
@@ -55,7 +47,6 @@ function Register({onRegister, formMessage:{message}, isSubmitButtonDisabled}) {
         <FormInput inputLabel="Пароль"
                    inputName="password"
                    inputType="password"
-                   // inputDefaultValue="Виталий"
                    inputAutocomplete="new-password"
                    inputError={errors.password || ''}
                    onChange={handleChange}
