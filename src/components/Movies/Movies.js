@@ -1,65 +1,48 @@
 import React, {useEffect, useState} from 'react';
 
-import SearchForm from "../SearchForm/SearchForm";
 import './Movies.css';
+import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import {getMovies} from "../../utils/MoviesApi";
 import {postMovie} from "../../utils/MainApi";
 import {filterMovies} from "../../utils/filterMovies";
+import {useCurrentWidth} from "../../hooks/useCurrentWidth";
+import {getFirstRows, getLoadStep} from "../../utils/handlePagination";
+import {DEFAULT_WIDTH} from "../../utils/constants";
 
-function Movies({ setSavedMovie, savedMovies, deleteMovieCard, /*setToolTip, submitButtonDisabled, setSubmitButtonDisabled*/ }) {
+function Movies({ setSavedMovies, savedMovies, deleteMovieCard, handlePopup /*setToolTip, submitButtonDisabled, setSubmitButtonDisabled*/ }) {
+  const width = useCurrentWidth();
   const [movies, setMovies] = useState([]);
-  const [filmSearchValue, setFilmSearchValue] = useState(getSearchStoreValue());
-  const [width, setWidth] = useState(window.innerWidth);
-  const [visibleMoviesCount, setVisibleMoviesCount] = useState(getFirstRows(width));
+  const [filmSearchValue, setFilmSearchValue] = useState(getSearchStoreValue() || '');
+  const [visibleMoviesCount, setVisibleMoviesCount] = useState(getFirstRows(width || DEFAULT_WIDTH));
   const moviesInLocal = JSON.parse(localStorage.getItem('allMovies'));
   const [checkShorts, setCheckShorts] = useState(JSON.parse(localStorage.getItem('checkBox')) || false);
   const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('allMovies')) || []);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaveMovieButtonDisabled, setIsSaveMovieButtonDisabled] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
 
+
+
   function saveMovies(movie) {
-    // setSubmitButtonDisabled(true)
+    setIsSaveMovieButtonDisabled(true)
     postMovie(movie)
       .then((res) => {
-        setSavedMovie([res, ...savedMovies])
+        setSavedMovies([res, ...savedMovies]);
       })
       .catch((err) => {
-        // setToolTip(true)
+        if (!err.message) {
+          return err.json()
+            .then(parsedError => handlePopup(parsedError.message));
+        }
+        handlePopup(err.message);
       })
-      // .finally(() => setSubmitButtonDisabled(false))
-  }
-
-  useEffect(() => {
-    function handleWindowSize() {
-      setWidth(window.innerWidth);
-    }
-    window.addEventListener('resize', handleWindowSize)
-    return () => window.removeEventListener('resize', handleWindowSize)
-  }, [width])
-
-  function getFirstRows(width) {
-    if (width >= 1280) {
-      return 12;
-    }
-    if (width >= 768) {
-      return 8;
-    }
-    else {
-      return 5;
-    }
-  }
-
-  const getLoad = (width) => {
-    if (width >= 1280) {
-      return 3;
-    }
-    return 2;
+      .finally(() => setIsSaveMovieButtonDisabled(false))
   }
 
   function handleLoadMore() {
-    return setVisibleMoviesCount((prevCount) => prevCount + getLoad(width))
+    return setVisibleMoviesCount((prevCount) => prevCount + getLoadStep(width))
   }
 
   useEffect(() => {
@@ -143,6 +126,7 @@ function Movies({ setSavedMovie, savedMovies, deleteMovieCard, /*setToolTip, sub
                       errorText={errorText}
                       saveMovies={saveMovies}
                       savedMovies={savedMovies}
+                      isSaveMovieButtonDisabled={isSaveMovieButtonDisabled}
                       // submitButtonDisabled={submitButtonDisabled}
       />
     </main>);

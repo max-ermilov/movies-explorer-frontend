@@ -3,7 +3,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './Profile.css';
 import {useFormValidation} from "../../utils/formValidation";
 
-function Profile({onEditProfile, formMessage: {message}, onLogout}) {
+function Profile({onEditProfile, formMessage: {message}, onLogout, isSubmitButtonDisabled}) {
   const currentUser = useContext(CurrentUserContext);
   const {values, handleChange, errors, isValid, resetForm} = useFormValidation();
   const [isDisabled, setIsDisabled] = useState(true);
@@ -15,8 +15,8 @@ function Profile({onEditProfile, formMessage: {message}, onLogout}) {
   }
 
   useEffect(() => {
-    setIsDisabled(!isValid)
-  }, [isValid])
+    setIsDisabled(!isValid || isSubmitButtonDisabled)
+  }, [isValid, isSubmitButtonDisabled])
 
   useEffect(() => {
     const equals = values.name === currentUser.name && values.email === currentUser.email;
@@ -36,7 +36,7 @@ function Profile({onEditProfile, formMessage: {message}, onLogout}) {
       <h2 className="profile__greeting">
         Привет, {currentUser.name}!
       </h2>
-      <form id="profile" className="profile__form" onSubmit={handleSubmit}>
+      <form id="profile" className="profile__form" onSubmit={handleSubmit} noValidate>
         <div className="profile__form-input-container">
           <label className="profile__form-input-label">
             Имя

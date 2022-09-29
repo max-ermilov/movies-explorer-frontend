@@ -5,7 +5,7 @@ import {MOVIES_API_URL} from "../../utils/constants";
 
 import './MoviesCard.css';
 
-function MoviesCard({ card, saveMovies, deleteMovieCard, savedMovies, /*submitButtonDisabled*/ }) {
+function MoviesCard({ card, saveMovies, deleteMovieCard, savedMovies, isSaveMovieButtonDisabled, isDeleteMovieButtonDisabled /*submitButtonDisabled*/ }) {
   const location = useLocation();
   const isSaved = card.id ? savedMovies.map((i) => i.movieId).includes(card.id)
     : location.pathname === '/saved-movies' ? true : '';
@@ -52,14 +52,16 @@ function MoviesCard({ card, saveMovies, deleteMovieCard, savedMovies, /*submitBu
                   className="button movies-card__button movies-card__delete-button"
                   aria-label="Удалить из сохранённых"
                   onClick={handleDelete}
-                  // disabled={Boolean(submitButtonDisabled)}
+                  disabled={isDeleteMovieButtonDisabled}
           >
           </button>}
         {location.pathname === '/movies' &&
-          <button onClick={handleSave}
+          <button onClick={isSaved ? handleDelete : handleSave}
                   type="button"
                   className={`button movies-card__button movies-card__save-button ${isSaved && "movies-card__save-button_active"}`}
-                  aria-label="Добавить в сохранённые">
+                  aria-label="Добавить в сохранённые"
+                  disabled={isSaveMovieButtonDisabled}
+          >
           </button>}
 
       </div>

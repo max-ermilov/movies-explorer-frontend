@@ -6,14 +6,14 @@
   align-items: center;
 }
 
-.movies-card-list__no-results {
-
-}
-
 .movies-card-list__container {
   display: flex;
   flex-direction: column;
   align-content: center;
+}
+
+.movies-card-list__no-results {
+  margin: auto;
 }
 
 .movies-card-list__list {

@@ -1,11 +1,11 @@
 import {useState, useEffect} from 'react';
 
-import SearchForm from "../SearchForm/SearchForm";
 import './SavedMovies.css';
+import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import {filterMovies} from "../../utils/filterMovies";
 
-function SavedMovies({ savedMovies, deleteMovieCard, isLoading, submitButtonDisabled }) {
+function SavedMovies({ savedMovies, deleteMovieCard, isLoading, isDeleteMovieButtonDisabled }) {
   const [film, setFilm] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [checkShorts, setCheckShorts] = useState(false);
@@ -69,7 +69,7 @@ function SavedMovies({ savedMovies, deleteMovieCard, isLoading, submitButtonDisa
                       isLoading={isLoading}
                       isError={isError}
                       errorText={errorText}
-                      submitButtonDisabled={submitButtonDisabled}
+                      isDeleteMovieButtonDisabled={isDeleteMovieButtonDisabled}
       />
     </main>);
 }

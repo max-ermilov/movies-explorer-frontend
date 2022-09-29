@@ -2,30 +2,32 @@ import React from 'react';
 import {useLocation} from "react-router-dom";
 
 import './MoviesCardList.css';
+import Preloader from "../Preloader/Preloader";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList({
                           cards,
-                          // isLoading,
+                          isLoading,
                           isError,
                           visibleMoviesCount,
                           deleteMovieCard,
                           handleLoadMore,
                           errorText,
                           saveMovies,
+                          isSaveMovieButtonDisabled,
+                          isDeleteMovieButtonDisabled,
                           savedMovies,
-                          // submitButtonDisabled,
                         }) {
   const location = useLocation();
 
   return (
 
     <section className="movies-card-list">
-      {isError ?
-        <p className="movies-card-list__no-results">
-          {errorText}
-        </p> : <>
-          <div className="container movies-card-list__container">
+      <div className="container movies-card-list__container">
+        {isLoading ? <Preloader/> : isError ?
+          <p className="movies-card-list__no-results">
+            {errorText}
+          </p> : <>
             <ul className="movies-card-list__list">
               {location.pathname === '/movies' && cards.slice(0, visibleMoviesCount)
                 .map((card) => (
@@ -34,7 +36,7 @@ function MoviesCardList({
                               savedMovies={savedMovies}
                               deleteMovieCard={deleteMovieCard}
                               saveMovies={saveMovies}
-                              // submitButtonDisabled={submitButtonDisabled}
+                              isSaveMovieButtonDisabled={isSaveMovieButtonDisabled}
                   />
                 ))
               }
@@ -43,7 +45,7 @@ function MoviesCardList({
                             key={card.movieId}
                             deleteMovieCard={deleteMovieCard}
                             saveMovies={saveMovies}
-                            // submitButtonDisabled={submitButtonDisabled}
+                            isDeleteMovieButtonDisabled={isDeleteMovieButtonDisabled}
                 />
               ))
               }
@@ -57,8 +59,8 @@ function MoviesCardList({
               >Ещё
               </button>
             }
-          </div>
-        </>}
+          </>}
+      </div>
     </section>);
 }
 

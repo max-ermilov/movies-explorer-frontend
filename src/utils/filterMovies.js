@@ -1,12 +1,14 @@
 import {SHORT_MOVIES_DURATION} from "./constants";
 
-export const filterMovies = (allMovies, film, checkShorts) => {
-  return allMovies.filter((movieCard) => {
-    if (checkShorts === false) {
-      return movieCard.nameRU.toLowerCase().includes(film.toLowerCase())
+export const filterMovies = (moviesList, searchValue, checkShorts) => {
+  return moviesList.filter(({nameRU, duration}) => {
+    if (!checkShorts) {
+      return nameRU.toLowerCase()
+        .includes(searchValue.toLowerCase()) &&
+        (duration > SHORT_MOVIES_DURATION);
     }
-    if (checkShorts === true) {
-      return movieCard.nameRU.toLowerCase().includes(film.toLowerCase()) && movieCard.duration <= SHORT_MOVIES_DURATION;
-    }
+    return nameRU.toLowerCase()
+      .includes(searchValue.toLowerCase()) &&
+      (duration <= SHORT_MOVIES_DURATION);
   });
 }

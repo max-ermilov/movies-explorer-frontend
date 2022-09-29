@@ -5,7 +5,7 @@ import FormInput from "../FormInput/FormInput";
 import Form from "../Form/Form";
 import {useFormValidation} from "../../utils/formValidation";
 
-function Register({onRegister, formMessage:{message}}) {
+function Register({onRegister, formMessage:{message}, isSubmitButtonDisabled}) {
   const {values, handleChange, resetForm, errors, isValid} = useFormValidation();
 
   const handleSubmit = (e) => {
@@ -15,8 +15,12 @@ function Register({onRegister, formMessage:{message}}) {
 
   useEffect(() => {
     resetForm({}, {}, false);
-    // resetFormMessage();
   }, [resetForm]);
+
+  useEffect(() => {
+    console.log('isSubmitButtonDisabled ==> ', Boolean(isSubmitButtonDisabled));
+    console.log('!isValid ==> ', !isValid);
+  }, [isValid, isSubmitButtonDisabled])
 
   return (
     <main className="register">
@@ -27,7 +31,8 @@ function Register({onRegister, formMessage:{message}}) {
             formFooterLinkTo="/signin"
             formMessage={message || ''}
             onSubmit={handleSubmit}
-            isDisabled={!isValid}
+            isDisabled={!isValid || isSubmitButtonDisabled}
+            // isSubmitButtonDisabled={isSubmitButtonDisabled}
       >
         <FormInput inputLabel="Имя"
                    inputName="name"

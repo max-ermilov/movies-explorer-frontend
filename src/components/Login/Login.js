@@ -5,9 +5,9 @@ import FormInput from "../FormInput/FormInput";
 import Form from "../Form/Form";
 import { useFormValidation } from "../../utils/formValidation";
 
-function Login({onLogin, formMessage:{message}, resetFormMessage}) {
+function Login({onLogin, formMessage:{message}, isSubmitButtonDisabled}) {
   const {values, handleChange, resetForm, errors, isValid} = useFormValidation();
-  // const isDisabled = !isValid
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onLogin(values);
@@ -15,9 +15,7 @@ function Login({onLogin, formMessage:{message}, resetFormMessage}) {
 
   useEffect(() => {
     resetForm({}, {}, false);
-    // resetFormMessage();
   }, [resetForm]);
-
 
   return (
     <main className="login">
@@ -28,12 +26,12 @@ function Login({onLogin, formMessage:{message}, resetFormMessage}) {
             formFooterLinkTo="/signup"
             formMessage={message || ''}
             onSubmit={handleSubmit}
-            isDisabled={!isValid}
+            isDisabled={Boolean(!isValid || isSubmitButtonDisabled)}
+            // isSubmitButtonDisabled={isSubmitButtonDisabled}
       >
         <FormInput inputLabel="E-mail"
                    inputName="email"
                    inputType="email"
-                   // inputDefaultValue="pochta@yandex.ru"
                    inputAutocomplete="email"
                    inputError={errors.email || ''}
                    onChange={handleChange}
@@ -42,7 +40,6 @@ function Login({onLogin, formMessage:{message}, resetFormMessage}) {
         <FormInput inputLabel="Пароль"
                    inputName="password"
                    inputType="password"
-                   // inputDefaultValue="Виталий"
                    inputAutocomplete="current-password"
                    inputError={errors.password || ''}
                    onChange={handleChange}

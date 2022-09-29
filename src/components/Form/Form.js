@@ -13,7 +13,8 @@ function Form({
                 formFooterLinkName,
                 formFooterLinkTo,
                 onSubmit,
-                isDisabled
+                isDisabled,
+                // isSubmitButtonDisabled
               }) {
   return (
     <div className="form">
@@ -21,7 +22,7 @@ function Form({
         <img className="form__logo" src={logo} alt="Логотип сайта"/>
       </Link>
       <h2 className="form__greetings">{formGreetings}</h2>
-      <form className="form__form" onSubmit={onSubmit}>
+      <form className="form__form" onSubmit={onSubmit} noValidate>
         {children}
         <div className="form__footer">
           <p className="form__message">{formMessage}</p>

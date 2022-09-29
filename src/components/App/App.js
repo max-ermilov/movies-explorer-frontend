@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import {Route, Switch, useHistory, Redirect, useLocation} from 'react-router-dom';
 
 import './App.css';
@@ -12,18 +12,21 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import InfoTooltip from "../infoTooltip/InfoTooltip";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import * as api from "../../utils/MainApi";
-import {getMovies} from "../../utils/MoviesApi";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({name: '', email: ''});
-  // const [movies, setMovies] = useState([]);
   const [formMessage, setFormMessage] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isDeleteMovieButtonDisabled, setIsDeleteMovieButtonDisabled] = useState(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
+  const [infoTooltipMessage, setInfoTooltipMessage] = useState('');
 
   const history = useHistory();
   const pathname = useLocation();
@@ -32,11 +35,18 @@ function App() {
     setFormMessage({});
   }
 
+  const handleApiError = (intro, err) => {
+    return err.json().then(parsedError => {
+      setFormMessage({
+        message: `${intro}: ${parsedError.message}`
+      })
+    })
+  }
   const handleLogin = (data) => {
-    // setLoginSending(true);
     setFormMessage({
       message: 'Авторизация...'
     });
+    setIsSubmitButtonDisabled(true);
     api.login(data)
       .then(res => {
         localStorage.setItem('jwt', res.token);
@@ -47,25 +57,16 @@ function App() {
         setFormMessage({});
       })
       .catch(err => {
-        if (err.statusCode === 401) {
-          setFormMessage({
-            message: 'Неверный логин или пароль'
-          });
-        } else {
-          setFormMessage({
-            message: 'Ошибка авторизации'
-          });
-        }
+        handleApiError('Ошибка авторизации', err)
       })
-      .finally(() => {
-        // setLoginSending(false);
-      })
+      .finally(() => setIsSubmitButtonDisabled(false))
   }
 
   const handleRegister = (user) => {
     setFormMessage({
       message: 'Регистрация...'
     });
+    setIsSubmitButtonDisabled(true);
     api.register(user)
       .then(() => {
         handleLogin({
@@ -76,24 +77,16 @@ function App() {
       .then(() => {
         setFormMessage({})
       })
-      .catch(err => {
-        if (err.statusCode === 409) {
-          setFormMessage({
-            message: 'Пользователь с таким email уже существует'
-          });
-        } else {
-          setFormMessage({
-            message: 'Ошибка регистрации'
-          });
-        }
+      .catch((err) => {
+        handleApiError('Ошибка регистрации', err)
+        setIsSubmitButtonDisabled(false)
       })
-      .finally(() => {
-        // setRegisterSending(true);
-      })
+      .finally(() => setIsSubmitButtonDisabled(false))
   };
 
   const handleEditProfile = (user) => {
     setFormMessage({});
+    setIsSubmitButtonDisabled(true)
     api.patchUser(user)
       .then((newUser) => {
         setCurrentUser(newUser);
@@ -102,47 +95,46 @@ function App() {
         });
       })
       .catch((err) => {
-        if (err.statusCode === 409) {
-          setFormMessage({
-            message: 'Пользователь с таким email уже существует'
-          });
-        } else {
-          setFormMessage({
-            message: 'При обновлении профиля произошла ошибка'
-          });
-        }
-      });
+        handleApiError('Ошибка обновления профиля', err)
+      })
+      .finally(() => setIsSubmitButtonDisabled(false));
   }
 
   const handleLogout = () => {
+    // setIsSubmitButtonDisabled(true);
     setIsLoggedIn(false);
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('jwt', 'checkBox', 'filmSearch', 'filteredMovies');
+    localStorage.removeItem('checkBox');
+    localStorage.removeItem('filmSearch');
+    localStorage.removeItem('filteredMovies');
     setCurrentUser({});
+    setSavedMovies([]);
     history.push('/');
   }
 
   function deleteMovieCard(movie) {
-    // setSubmitButtonDisabled(true)
+    setIsDeleteMovieButtonDisabled(true)
     api.deleteMovie(movie._id)
       .then((res) => {
         setSavedMovies((state) => state.filter((c) => c._id !== movie._id))
       })
       .catch((err) => {
-        // setToolTip(true)
+        handlePopup(err.message)
       })
-      // .finally(() => setSubmitButtonDisabled(false))
+    .finally(() => setIsDeleteMovieButtonDisabled(false))
   }
 
-  // const fetchMovies = () => {
-  //   getMovies()
-  //     .then(res => {
-  //       setMovies(res);
-  //       localStorage.setItem('movies', JSON.stringify(res));
-  //     })
-  //     .catch(err => {
-  //       console.log('fetchMovies err ==> ', err);
-  //     })
-  // }
+  const closePopup = () => {
+    setIsInfoTooltipOpen(false);
+    setInfoTooltipMessage('')
+  };
+
+  const handlePopup = (error) => {
+    setInfoTooltipMessage(error)
+    setIsInfoTooltipOpen(true);
+
+  }
+
   useEffect(() => {
     // setIsLoading(true)
     if (localStorage.getItem('jwt')) {
@@ -151,13 +143,13 @@ function App() {
           setSavedMovies(res.filter((i) => i.owner._id === currentUser._id))
         })
         .catch((err) => console.log(err))
-        // .finally(() => { setIsLoading(false) })
+      // .finally(() => { setIsLoading(false) })
     }
   }, [currentUser])
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    if(jwt) {
+    if (jwt) {
       api.getUserCredentials()
         .then((res) => {
           if (res) {
@@ -187,22 +179,6 @@ function App() {
     resetFormMessage()
   }, [pathname]);
 
-  // useEffect(() => {
-  //   // if (isLoggedIn) {
-  //     const cashedMovies = localStorage.getItem('movies');
-  //     if (cashedMovies) {
-  //       try {
-  //         setMovies(JSON.parse(cashedMovies))
-  //       } catch (err) {
-  //         localStorage.removeItem('movies')
-  //         fetchMovies();
-  //       }
-  //     } else {
-  //       fetchMovies();
-  //     }
-  //
-  // }, [])
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -219,9 +195,7 @@ function App() {
             setSavedMovies={setSavedMovies}
             savedMovies={savedMovies}
             deleteMovieCard={deleteMovieCard}
-            // setToolTip={setToolTip}
-            // setSubmitButtonDisabled={setSubmitButtonDisabled}
-            // submitButtonDisabled={submitButtonDisabled}
+            handlePopup={handlePopup}
           />
 
           <ProtectedRoute
@@ -229,9 +203,8 @@ function App() {
             component={SavedMovies}
             loggedIn={isLoggedIn}
             savedMovies={savedMovies}
-            // isLoading={isLoading}
             deleteMovieCard={deleteMovieCard}
-            // submitButtonDisabled={submitButtonDisabled}
+            isDeleteMovieButtonDisabled={isDeleteMovieButtonDisabled}
           />
 
           <ProtectedRoute
@@ -242,6 +215,7 @@ function App() {
             formMessage={formMessage}
             resetFormMessage={resetFormMessage}
             onLogout={handleLogout}
+            isSubmitButtonDisabled={isSubmitButtonDisabled}
 
           />
 
@@ -250,6 +224,7 @@ function App() {
               <Login onLogin={handleLogin}
                      formMessage={formMessage}
                      resetFormMessage={resetFormMessage}
+                     isSubmitButtonDisabled={isSubmitButtonDisabled}
               />
             }
           </Route>
@@ -259,6 +234,7 @@ function App() {
               <Register onRegister={handleRegister}
                         formMessage={formMessage}
                         resetFormMessage={resetFormMessage}
+                        isSubmitButtonDisabled={isSubmitButtonDisabled}
               />
             }
           </Route>
@@ -268,7 +244,13 @@ function App() {
           </Route>
         </Switch>
         <Footer/>
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closePopup}
+          status={infoTooltipMessage || "Неизвестная ошибка"}
+        />
       </div>
+
     </CurrentUserContext.Provider>
   );
 }
