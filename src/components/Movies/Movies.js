@@ -4,17 +4,17 @@ import './Movies.css';
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import {getMovies} from "../../utils/MoviesApi";
-import {postMovie} from "../../utils/MainApi";
+// import {postMovie} from "../../utils/MainApi";
 import {filterMovies} from "../../utils/filterMovies";
 import {useCurrentWidth} from "../../hooks/useCurrentWidth";
 import {getFirstRows, getLoadStep} from "../../utils/handlePagination";
 import {DEFAULT_WIDTH} from "../../utils/constants";
 
 function Movies({
-                  setSavedMovies,
                   savedMovies,
                   deleteMovieCard,
-                  handlePopup
+                  saveMovies,
+                  isSaveMovieButtonDisabled
                 }) {
   const width = useCurrentWidth();
   const [movies, setMovies] = useState([]);
@@ -24,26 +24,8 @@ function Movies({
   const [checkShorts, setCheckShorts] = useState(JSON.parse(localStorage.getItem('checkBox')) || false);
   const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('allMovies')) || []);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSaveMovieButtonDisabled, setIsSaveMovieButtonDisabled] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
-
-
-  function saveMovies(movie) {
-    setIsSaveMovieButtonDisabled(true)
-    postMovie(movie)
-      .then((res) => {
-        setSavedMovies([res, ...savedMovies]);
-      })
-      .catch((err) => {
-        if (!err.message) {
-          return err.json()
-            .then(parsedError => handlePopup(parsedError.message));
-        }
-        handlePopup(err.message);
-      })
-      .finally(() => setIsSaveMovieButtonDisabled(false))
-  }
 
   function handleLoadMore() {
     return setVisibleMoviesCount((prevCount) => prevCount + getLoadStep(width))

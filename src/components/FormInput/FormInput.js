@@ -3,7 +3,17 @@ import React from 'react';
 import './FormInput.css';
 
 function FormInput({
-                     inputLabel, inputName, inputType, inputDefaultValue, inputAutocomplete, inputError, onChange, value
+                     inputLabel,
+                     inputName,
+                     inputType,
+                     inputDefaultValue,
+                     inputAutocomplete,
+                     inputError,
+                     onChange,
+                     value,
+                     minLength,
+                     maxLength,
+                     pattern
                    }) {
   return (
     <div className="form-input">
@@ -15,7 +25,11 @@ function FormInput({
              type={inputType}
              autoComplete={inputAutocomplete}
              onChange={onChange}
-             required/>
+             required
+             minLength={minLength}
+             maxLength={maxLength}
+             pattern={pattern}
+      />
       <p className="form-input__error-field">{inputError}</p>
     </div>);
 }

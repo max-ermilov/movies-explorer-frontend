@@ -24,6 +24,7 @@ function App() {
   const [formMessage, setFormMessage] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isSaveMovieButtonDisabled, setIsSaveMovieButtonDisabled] = useState(false);
   const [isDeleteMovieButtonDisabled, setIsDeleteMovieButtonDisabled] = useState(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
   const [infoTooltipMessage, setInfoTooltipMessage] = useState('');
@@ -95,7 +96,8 @@ function App() {
         });
       })
       .catch((err) => {
-        handleApiError('Ошибка обновления профиля', err)
+        checkApiError(err);
+        handleApiError('Ошибка обновления профиля', err);
       })
       .finally(() => setIsSubmitButtonDisabled(false));
   }
@@ -106,22 +108,37 @@ function App() {
     localStorage.removeItem('checkBox');
     localStorage.removeItem('filmSearch');
     localStorage.removeItem('filteredMovies');
+    localStorage.removeItem('allMovies');
     setCurrentUser({});
     setSavedMovies([]);
     history.push('/');
   }
 
-  function deleteMovieCard(movie) {
+  const deleteMovieCard = movie => {
     setIsDeleteMovieButtonDisabled(true)
     api.deleteMovie(movie._id)
       .then((res) => {
         setSavedMovies((state) => state.filter((c) => c._id !== movie._id))
       })
       .catch((err) => {
-        handlePopup(err.message)
+        checkApiError(err);
+        handlePopup(err.message);
       })
       .finally(() => setIsDeleteMovieButtonDisabled(false))
-  }
+  };
+
+  const saveMovieCard = movie => {
+    setIsSaveMovieButtonDisabled(true)
+    api.postMovie(movie)
+      .then((res) => {
+        setSavedMovies([res, ...savedMovies]);
+      })
+      .catch((err) => {
+        checkApiError(err);
+        handlePopup(err.message);
+      })
+      .finally(() => setIsSaveMovieButtonDisabled(false))
+  };
 
   const closePopup = () => {
     setIsInfoTooltipOpen(false);
@@ -134,13 +151,23 @@ function App() {
 
   }
 
+  function checkApiError(error) {
+    console.log('error ==> ', error);
+    if (error.status === 401) {
+      return handleLogout();
+    }
+  }
+
   useEffect(() => {
     if (localStorage.getItem('jwt')) {
       api.getMovie()
         .then((res) => {
           setSavedMovies(res.filter((i) => i.owner._id === currentUser._id))
         })
-        .catch((err) => handlePopup(err.message))
+        .catch((err) => {
+          checkApiError(err)
+          handlePopup(err.message)
+        })
     }
   }, [currentUser])
 
@@ -155,6 +182,7 @@ function App() {
           }
         })
         .catch(() => {
+          handleLogout();
           history.push("/")
         });
     }
@@ -166,7 +194,9 @@ function App() {
         .then((user) => {
           setCurrentUser(user);
         })
-        .catch((err) => handlePopup(err.message));
+        .catch((err) => {
+          handleLogout();
+        });
     }
   }, [isLoggedIn]);
 
@@ -187,10 +217,12 @@ function App() {
             path="/movies"
             component={Movies}
             loggedIn={isLoggedIn}
-            setSavedMovies={setSavedMovies}
+            // setSavedMovies={setSavedMovies}
+            saveMovies={saveMovieCard}
             savedMovies={savedMovies}
             deleteMovieCard={deleteMovieCard}
-            handlePopup={handlePopup}
+            // handlePopup={handlePopup}
+            isSaveMovieButtonDisabled={isSaveMovieButtonDisabled}
           />
 
           <ProtectedRoute

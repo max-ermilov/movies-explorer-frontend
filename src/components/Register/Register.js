@@ -4,6 +4,7 @@ import './Register.css';
 import FormInput from "../FormInput/FormInput";
 import Form from "../Form/Form";
 import {useFormValidation} from "../../utils/formValidation";
+import {EMAIL_REGEXP} from "../../utils/constants";
 
 function Register({onRegister, formMessage: {message}, isSubmitButtonDisabled}) {
   const {values, handleChange, resetForm, errors, isValid} = useFormValidation();
@@ -35,6 +36,9 @@ function Register({onRegister, formMessage: {message}, isSubmitButtonDisabled}) 
                    inputError={errors.name || ''}
                    onChange={handleChange}
                    value={values.name || ''}
+                   minLength="3"
+                   maxLength="30"
+
         />
         <FormInput inputLabel="E-mail"
                    inputName="email"
@@ -43,6 +47,7 @@ function Register({onRegister, formMessage: {message}, isSubmitButtonDisabled}) 
                    inputError={errors.email || ''}
                    onChange={handleChange}
                    value={values.email || ''}
+                   pattern={EMAIL_REGEXP}
         />
         <FormInput inputLabel="Пароль"
                    inputName="password"
@@ -51,6 +56,7 @@ function Register({onRegister, formMessage: {message}, isSubmitButtonDisabled}) 
                    inputError={errors.password || ''}
                    onChange={handleChange}
                    value={values.password || ''}
+                   minLength="3"
         />
       </Form>
     </main>);

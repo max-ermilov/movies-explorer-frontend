@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import './Profile.css';
 import {useFormValidation} from "../../utils/formValidation";
+import {EMAIL_REGEXP} from "../../utils/constants";
 
 function Profile({onEditProfile, formMessage: {message}, onLogout, isSubmitButtonDisabled}) {
   const currentUser = useContext(CurrentUserContext);
@@ -62,6 +63,7 @@ function Profile({onEditProfile, formMessage: {message}, onLogout, isSubmitButto
                  onChange={handleChange}
                  value={values.email || ''}
                  type="email"
+                 pattern={EMAIL_REGEXP}
                  required
           />
         </div>
