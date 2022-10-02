@@ -6,21 +6,21 @@
   align-items: center;
 }
 
-.movies-card-list__no-results {
-
-}
-
 .movies-card-list__container {
   display: flex;
   flex-direction: column;
   align-content: center;
 }
 
+.movies-card-list__no-results {
+  margin: auto;
+}
+
 .movies-card-list__list {
   display: grid;
   row-gap: 30px;
   column-gap: 20px;
-  grid-template-columns: repeat(auto-fill,minmax(269px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(269px, 1fr));
   justify-items: center;
   list-style-type: none;
   padding: 0;

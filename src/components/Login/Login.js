@@ -1,11 +1,23 @@
-import React from 'react';
+import {useEffect} from 'react';
 
 import './Login.css';
 import FormInput from "../FormInput/FormInput";
 import Form from "../Form/Form";
-import {Link} from "react-router-dom";
+import {useFormValidation} from "../../utils/formValidation";
+import {EMAIL_REGEX} from "../../utils/constants";
 
-function Login() {
+function Login({onLogin, formMessage: {message}, isSubmitButtonDisabled}) {
+  const {values, handleChange, resetForm, errors, isValid} = useFormValidation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onLogin(values);
+  }
+
+  useEffect(() => {
+    resetForm({}, {}, false);
+  }, [resetForm]);
+
   return (
     <main className="login">
       <Form formGreetings="Рады видеть!"
@@ -13,18 +25,28 @@ function Login() {
             formFooterText="Ещё не зарегистрированы?"
             formFooterLinkName="Регистрация"
             formFooterLinkTo="/signup"
+            formMessage={message || ''}
+            onSubmit={handleSubmit}
+            isDisabled={Boolean(!isValid || isSubmitButtonDisabled)}
       >
         <FormInput inputLabel="E-mail"
+                   inputName="email"
                    inputType="email"
-                   inputDefaultValue="pochta@yandex.ru"
-                   inputAutocomplete="username"
-                   inputError=""
+                   inputAutocomplete="email"
+                   inputError={errors.email || ''}
+                   onChange={handleChange}
+                   value={values.email || ''}
+                   pattern={EMAIL_REGEX}
+                   // pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
         />
         <FormInput inputLabel="Пароль"
+                   inputName="password"
                    inputType="password"
-                   inputDefaultValue="Виталий"
                    inputAutocomplete="current-password"
-                   inputError=""
+                   inputError={errors.password || ''}
+                   onChange={handleChange}
+                   value={values.password || ''}
+                   minLength="3"
         />
       </Form>
     </main>);

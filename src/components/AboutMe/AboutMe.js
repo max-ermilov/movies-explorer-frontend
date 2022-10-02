@@ -40,8 +40,8 @@ function AboutMe() {
             </ul>
           </div>
           <img className="about-me__photo"
-          src={studentPhoto}
-          alt="фото студента"/>
+               src={studentPhoto}
+               alt="фото студента"/>
         </div>
       </div>
     </section>

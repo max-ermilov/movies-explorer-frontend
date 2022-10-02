@@ -2,20 +2,35 @@ import React from 'react';
 
 import './FormInput.css';
 
-function FormInput({ inputLabel, inputType, inputDefaultValue, inputAutocomplete, inputError }) {
+function FormInput({
+                     inputLabel,
+                     inputName,
+                     inputType,
+                     inputDefaultValue,
+                     inputAutocomplete,
+                     inputError,
+                     onChange,
+                     value,
+                     minLength,
+                     maxLength,
+                     pattern
+                   }) {
   return (
     <div className="form-input">
-      <label className="form-input__label">
-        {inputLabel}
-      </label>
-      <input className={`form-input__input ${(inputError) ? "form-input__input_type_error" : ""}`}
+      <label className="form-input__label">{inputLabel}</label>
+      <input name={inputName}
+             className={`form-input__input ${(inputError) ? "form-input__input_type_error" : ""}`}
              defaultValue={inputDefaultValue}
+             value={value}
              type={inputType}
              autoComplete={inputAutocomplete}
-             required/>
-      <p className="form-input__error-field">
-        {inputError}
-      </p>
+             onChange={onChange}
+             required
+             minLength={minLength}
+             maxLength={maxLength}
+             pattern={pattern}
+      />
+      <p className="form-input__error-field">{inputError}</p>
     </div>);
 }
 
