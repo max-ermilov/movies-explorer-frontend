@@ -4,7 +4,7 @@ import './Register.css';
 import FormInput from "../FormInput/FormInput";
 import Form from "../Form/Form";
 import {useFormValidation} from "../../utils/formValidation";
-import {EMAIL_REGEXP} from "../../utils/constants";
+import {EMAIL_REGEX} from "../../utils/constants";
 
 function Register({onRegister, formMessage: {message}, isSubmitButtonDisabled}) {
   const {values, handleChange, resetForm, errors, isValid} = useFormValidation();
@@ -47,7 +47,7 @@ function Register({onRegister, formMessage: {message}, isSubmitButtonDisabled}) 
                    inputError={errors.email || ''}
                    onChange={handleChange}
                    value={values.email || ''}
-                   pattern={EMAIL_REGEXP}
+                   pattern={EMAIL_REGEX}
         />
         <FormInput inputLabel="Пароль"
                    inputName="password"

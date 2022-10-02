@@ -4,7 +4,7 @@ import './Login.css';
 import FormInput from "../FormInput/FormInput";
 import Form from "../Form/Form";
 import {useFormValidation} from "../../utils/formValidation";
-import {EMAIL_REGEXP} from "../../utils/constants";
+import {EMAIL_REGEX} from "../../utils/constants";
 
 function Login({onLogin, formMessage: {message}, isSubmitButtonDisabled}) {
   const {values, handleChange, resetForm, errors, isValid} = useFormValidation();
@@ -36,7 +36,8 @@ function Login({onLogin, formMessage: {message}, isSubmitButtonDisabled}) {
                    inputError={errors.email || ''}
                    onChange={handleChange}
                    value={values.email || ''}
-                   pattern={EMAIL_REGEXP}
+                   pattern={EMAIL_REGEX}
+                   // pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
         />
         <FormInput inputLabel="Пароль"
                    inputName="password"
