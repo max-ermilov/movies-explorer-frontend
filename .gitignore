@@ -11,6 +11,10 @@
 # production
 /build
 
+# search engines authentication files
+public/yandex*
+public/google*
+
 # misc
 .idea
 .DS_Store

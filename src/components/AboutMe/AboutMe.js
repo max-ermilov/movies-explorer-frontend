@@ -23,13 +23,20 @@ function AboutMe() {
             <p className="about-me__description">
               Я&nbsp;родился и&nbsp;живу в&nbsp;Нижнем Новгороде, работал в&nbsp;техподдержке сотрудников Сбербанка.
               Люблю делать разные штуки руками. Недавно решил сменить профессию и&nbsp;заняться разработкой.
+              В&nbsp;данный момент ищу работу Junior Front-end Developer&rsquo;а.
             </p>
             <ul className="about-me__social-medias">
               <li>
                 <a className="link about-me__social-media-link"
                    target="_blank"
                    rel="noreferrer"
-                   href="https://www.facebook.com">Facebook</a>
+                   href="https://t.me/yermish">Telegram</a>
+              </li>
+              <li>
+                <a className="link about-me__social-media-link"
+                   target="_blank"
+                   rel="noreferrer"
+                   href="https://career.habr.com/max-ermilov">Хабр Карьера</a>
               </li>
               <li>
                 <a className="link about-me__social-media-link"
