@@ -13,6 +13,7 @@
 - Пагинация результатов поиска
 
 ## Технологии:
+- Методология БЭМ
 - HTML5
 - CSS3:
   - Flexbox
@@ -20,11 +21,8 @@
   - Positioning
   - Adaptive UI
   - Media Queries
-- Методология БЭМ
 - JavaScript
-- Webpack;
-- React JS:
-  - Create React App
+- React:
   - Портирование разметки в JSX
   - Функциональные компоненты
   - Хуки
