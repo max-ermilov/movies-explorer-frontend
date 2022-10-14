@@ -66,7 +66,7 @@
 </details>
 
 # Ссылки:
-- [Макет Дипломной работы](https://www.figma.com/file/wi6oZpvRle9cntFlBVddfL/Diploma-(Copy)) сгенерирован случайным образом
+- [Макет Дипломной работы](https://www.figma.com/file/wi6oZpvRle9cntFlBVddfL/Diploma-(Copy)) (сгенерирован случайным образом)
 - [Критерии дипломной работы](https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/index.html#js)
 - Сайт: https://fin.nomoredomains.xyz/
 - Репозиторий API: https://github.com/max-ermilov/movies-explorer-api/
